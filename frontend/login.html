@@ -1,0 +1,1726 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Login | NewsHub</title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+
+        /* =====================================================
+           RESET
+           ===================================================== */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100%;
+        }
+
+
+        body {
+            font-family: "Inter", sans-serif;
+            background:
+                radial-gradient(
+                    circle at 15% 20%,
+                    rgba(124, 58, 237, 0.28),
+                    transparent 32%
+                ),
+                radial-gradient(
+                    circle at 85% 80%,
+                    rgba(59, 130, 246, 0.24),
+                    transparent 34%
+                ),
+                #080b18;
+
+            color: #172033;
+
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 24px;
+
+            overflow-x: hidden;
+        }
+
+
+        /* =====================================================
+           BACKGROUND DECORATION
+           ===================================================== */
+
+        .background-orb {
+            position: fixed;
+
+            border-radius: 50%;
+
+            filter: blur(5px);
+
+            pointer-events: none;
+
+            z-index: 0;
+        }
+
+
+        .orb-one {
+            width: 280px;
+            height: 280px;
+
+            background:
+                rgba(124, 58, 237, 0.18);
+
+            top: -100px;
+            left: -80px;
+        }
+
+
+        .orb-two {
+            width: 340px;
+            height: 340px;
+
+            background:
+                rgba(37, 99, 235, 0.14);
+
+            right: -120px;
+            bottom: -100px;
+        }
+
+
+        /* =====================================================
+           MAIN AUTH WRAPPER
+           ===================================================== */
+
+        .auth-wrapper {
+            position: relative;
+
+            z-index: 2;
+
+            width: min(1120px, 100%);
+
+            min-height: 680px;
+
+            display: grid;
+
+            grid-template-columns:
+                1fr
+                0.88fr;
+
+            background:
+                rgba(255, 255, 255, 0.97);
+
+            border:
+                1px solid rgba(255, 255, 255, 0.45);
+
+            border-radius: 30px;
+
+            overflow: hidden;
+
+            box-shadow:
+                0 35px 90px rgba(0, 0, 0, 0.42),
+                0 10px 30px rgba(0, 0, 0, 0.18);
+
+            animation:
+                pageEnter 0.65s ease;
+        }
+
+
+        @keyframes pageEnter {
+
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(18px)
+                    scale(0.985);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+        }
+
+
+        /* =====================================================
+           LEFT BRAND PANEL
+           ===================================================== */
+
+        .brand-panel {
+            position: relative;
+
+            padding:
+                58px
+                55px;
+
+            color: white;
+
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    #24104f 0%,
+                    #4c1d95 42%,
+                    #2563eb 100%
+                );
+        }
+
+
+        .brand-panel::before {
+            content: "";
+
+            position: absolute;
+
+            width: 360px;
+            height: 360px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255, 255, 255, 0.08);
+
+            right: -130px;
+            top: -110px;
+        }
+
+
+        .brand-panel::after {
+            content: "";
+
+            position: absolute;
+
+            width: 250px;
+            height: 250px;
+
+            border-radius: 50%;
+
+            background:
+                rgba(255, 255, 255, 0.06);
+
+            left: -100px;
+            bottom: -100px;
+        }
+
+
+        .brand-content {
+            position: relative;
+
+            z-index: 2;
+
+            height: 100%;
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: space-between;
+        }
+
+
+        /* =====================================================
+           LOGO
+           ===================================================== */
+
+        .brand-logo {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            width: fit-content;
+
+            font-size: 20px;
+
+            font-weight: 800;
+
+            letter-spacing: -0.5px;
+        }
+
+
+        .logo-icon {
+            width: 48px;
+            height: 48px;
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 15px;
+
+            background:
+                rgba(255, 255, 255, 0.16);
+
+            border:
+                1px solid rgba(255, 255, 255, 0.22);
+
+            font-size: 25px;
+
+            font-weight: 800;
+
+            box-shadow:
+                0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+
+        /* =====================================================
+           BRAND CONTENT
+           ===================================================== */
+
+        .brand-middle {
+            max-width: 450px;
+        }
+
+
+        .brand-eyebrow {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            margin-bottom: 18px;
+
+            padding:
+                8px
+                13px;
+
+            border-radius: 100px;
+
+            background:
+                rgba(255, 255, 255, 0.12);
+
+            border:
+                1px solid rgba(255, 255, 255, 0.15);
+
+            font-size: 11px;
+
+            font-weight: 700;
+
+            letter-spacing: 1.4px;
+
+            text-transform: uppercase;
+        }
+
+
+        .brand-middle h1 {
+            font-size:
+                clamp(38px, 4vw, 58px);
+
+            line-height: 1.04;
+
+            letter-spacing: -2.5px;
+
+            margin-bottom: 22px;
+        }
+
+
+        .brand-middle h1 span {
+            color: #c4b5fd;
+        }
+
+
+        .brand-middle p {
+            color:
+                rgba(255, 255, 255, 0.74);
+
+            font-size: 15px;
+
+            line-height: 1.75;
+
+            max-width: 430px;
+        }
+
+
+        /* =====================================================
+           NEWS MINI CARDS
+           ===================================================== */
+
+        .news-preview {
+            display: grid;
+
+            grid-template-columns:
+                repeat(3, 1fr);
+
+            gap: 10px;
+
+            margin-top: 38px;
+
+            max-width: 480px;
+        }
+
+
+        .preview-card {
+            min-height: 82px;
+
+            padding: 14px;
+
+            border-radius: 16px;
+
+            background:
+                rgba(255, 255, 255, 0.09);
+
+            border:
+                1px solid rgba(255, 255, 255, 0.10);
+
+            backdrop-filter:
+                blur(10px);
+        }
+
+
+        .preview-icon {
+            font-size: 20px;
+
+            margin-bottom: 8px;
+        }
+
+
+        .preview-card strong {
+            display: block;
+
+            font-size: 11px;
+
+            margin-bottom: 3px;
+        }
+
+
+        .preview-card small {
+            display: block;
+
+            font-size: 9px;
+
+            color:
+                rgba(255, 255, 255, 0.55);
+        }
+
+
+        /* =====================================================
+           BRAND FOOTER
+           ===================================================== */
+
+        .brand-footer {
+            display: flex;
+
+            align-items: center;
+
+            gap: 9px;
+
+            color:
+                rgba(255, 255, 255, 0.55);
+
+            font-size: 11px;
+        }
+
+
+        .live-dot {
+            width: 7px;
+            height: 7px;
+
+            border-radius: 50%;
+
+            background: #86efac;
+
+            box-shadow:
+                0 0 0 5px rgba(134, 239, 172, 0.08);
+        }
+
+
+        /* =====================================================
+           RIGHT LOGIN PANEL
+           ===================================================== */
+
+        .login-panel {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            padding:
+                55px 65px;
+
+            background: #ffffff;
+        }
+
+
+        .login-content {
+            width: min(390px, 100%);
+        }
+
+
+        /* =====================================================
+           LOGIN HEADER
+           ===================================================== */
+
+        .mobile-logo {
+            display: none;
+        }
+
+
+        .login-eyebrow {
+            display: inline-block;
+
+            margin-bottom: 13px;
+
+            color: #6d28d9;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            letter-spacing: 1.5px;
+
+            text-transform: uppercase;
+        }
+
+
+        .login-content h2 {
+            font-size: 34px;
+
+            line-height: 1.1;
+
+            letter-spacing: -1.3px;
+
+            color: #101828;
+
+            margin-bottom: 10px;
+        }
+
+
+        .login-subtitle {
+            color: #667085;
+
+            font-size: 14px;
+
+            line-height: 1.6;
+
+            margin-bottom: 32px;
+        }
+
+
+        /* =====================================================
+           FORM
+           ===================================================== */
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+
+        .form-label-row {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-bottom: 8px;
+        }
+
+
+        .form-label {
+            color: #344054;
+
+            font-size: 13px;
+
+            font-weight: 700;
+        }
+
+
+        .input-wrapper {
+            position: relative;
+        }
+
+
+        .input-icon {
+            position: absolute;
+
+            left: 16px;
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            color: #98a2b3;
+
+            font-size: 17px;
+
+            pointer-events: none;
+        }
+
+
+        .form-input {
+            width: 100%;
+
+            height: 52px;
+
+            padding:
+                0 16px
+                0 46px;
+
+            border:
+                1px solid #d0d5dd;
+
+            border-radius: 13px;
+
+            outline: none;
+
+            background: #ffffff;
+
+            color: #101828;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+            transition:
+                border-color 0.2s ease,
+                box-shadow 0.2s ease,
+                background 0.2s ease;
+        }
+
+
+        .form-input::placeholder {
+            color: #98a2b3;
+        }
+
+
+        .form-input:hover {
+            border-color: #98a2b3;
+        }
+
+
+        .form-input:focus {
+            border-color: #7c3aed;
+
+            background: #ffffff;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(124, 58, 237, 0.10);
+        }
+
+
+        .password-wrapper .form-input {
+            padding-right: 52px;
+        }
+
+
+        .password-toggle {
+            position: absolute;
+
+            right: 13px;
+            top: 50%;
+
+            transform:
+                translateY(-50%);
+
+            border: none;
+
+            background: transparent;
+
+            color: #667085;
+
+            cursor: pointer;
+
+            width: 34px;
+            height: 34px;
+
+            border-radius: 8px;
+
+            font-size: 15px;
+        }
+
+
+        .password-toggle:hover {
+            background: #f2f4f7;
+
+            color: #344054;
+        }
+
+
+        /* =====================================================
+           REMEMBER / FORGOT
+           ===================================================== */
+
+        .login-options {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            margin-top: 4px;
+
+            margin-bottom: 23px;
+        }
+
+
+        .remember {
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            color: #667085;
+
+            font-size: 12px;
+
+            cursor: pointer;
+        }
+
+
+        .remember input {
+            width: 15px;
+            height: 15px;
+
+            accent-color: #6d28d9;
+
+            cursor: pointer;
+        }
+
+
+        .forgot-link {
+            color: #6d28d9;
+
+            text-decoration: none;
+
+            font-size: 12px;
+
+            font-weight: 700;
+        }
+
+
+        .forgot-link:hover {
+            text-decoration: underline;
+        }
+
+
+        /* =====================================================
+           LOGIN BUTTON
+           ===================================================== */
+
+        .login-button {
+            width: 100%;
+
+            height: 53px;
+
+            border: none;
+
+            border-radius: 13px;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #7c3aed,
+                    #4f46e5
+                );
+
+            color: white;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 10px 24px
+                rgba(109, 40, 217, 0.24);
+
+            transition:
+                transform 0.2s ease,
+                box-shadow 0.2s ease,
+                opacity 0.2s ease;
+        }
+
+
+        .login-button:hover {
+            transform:
+                translateY(-1px);
+
+            box-shadow:
+                0 14px 30px
+                rgba(109, 40, 217, 0.30);
+        }
+
+
+        .login-button:active {
+            transform:
+                translateY(0);
+        }
+
+
+        .login-button:disabled {
+            opacity: 0.65;
+
+            cursor: not-allowed;
+
+            transform: none;
+        }
+
+
+        /* =====================================================
+           DIVIDER
+           ===================================================== */
+
+        .divider {
+            display: flex;
+
+            align-items: center;
+
+            gap: 14px;
+
+            margin:
+                26px 0;
+        }
+
+
+        .divider::before,
+        .divider::after {
+            content: "";
+
+            flex: 1;
+
+            height: 1px;
+
+            background: #eaecf0;
+        }
+
+
+        .divider span {
+            color: #98a2b3;
+
+            font-size: 11px;
+
+            font-weight: 600;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+        }
+
+
+        /* =====================================================
+           SIGNUP LINK
+           ===================================================== */
+
+        .signup-box {
+            text-align: center;
+
+            padding-top: 3px;
+        }
+
+
+        .signup-box p {
+            color: #667085;
+
+            font-size: 13px;
+        }
+
+
+        .signup-box a {
+            color: #6d28d9;
+
+            font-weight: 800;
+
+            text-decoration: none;
+        }
+
+
+        .signup-box a:hover {
+            text-decoration: underline;
+        }
+
+
+        /* =====================================================
+           ERROR / SUCCESS
+           ===================================================== */
+
+        .message {
+            display: none;
+
+            margin-bottom: 18px;
+
+            padding:
+                12px 14px;
+
+            border-radius: 11px;
+
+            font-size: 12px;
+
+            line-height: 1.5;
+        }
+
+
+        .message.show {
+            display: block;
+        }
+
+
+        .message.error {
+            background: #fff1f2;
+
+            border:
+                1px solid #fecdd3;
+
+            color: #be123c;
+        }
+
+
+        .message.success {
+            background: #ecfdf3;
+
+            border:
+                1px solid #abefc6;
+
+            color: #027a48;
+        }
+
+
+        /* =====================================================
+           SECURITY NOTE
+           ===================================================== */
+
+        .security-note {
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            gap: 7px;
+
+            margin-top: 28px;
+
+            color: #98a2b3;
+
+            font-size: 10px;
+        }
+
+
+        /* =====================================================
+           RESPONSIVE
+           ===================================================== */
+
+        @media (max-width: 900px) {
+
+            .auth-wrapper {
+                grid-template-columns: 1fr;
+
+                min-height: auto;
+
+                max-width: 560px;
+            }
+
+
+            .brand-panel {
+                display: none;
+            }
+
+
+            .login-panel {
+                padding:
+                    48px 38px;
+            }
+
+
+            .mobile-logo {
+                display: flex;
+
+                align-items: center;
+
+                justify-content: center;
+
+                gap: 10px;
+
+                margin-bottom: 35px;
+
+                color: #172033;
+
+                font-size: 19px;
+
+                font-weight: 800;
+            }
+
+
+            .mobile-logo-icon {
+                width: 42px;
+                height: 42px;
+
+                display: flex;
+
+                align-items: center;
+                justify-content: center;
+
+                border-radius: 13px;
+
+                color: white;
+
+                background:
+                    linear-gradient(
+                        135deg,
+                        #7c3aed,
+                        #4f46e5
+                    );
+
+                font-weight: 800;
+            }
+
+        }
+
+
+        @media (max-width: 520px) {
+
+            body {
+                padding: 12px;
+            }
+
+
+            .auth-wrapper {
+                border-radius: 22px;
+            }
+
+
+            .login-panel {
+                padding:
+                    38px 24px;
+            }
+
+
+            .login-content h2 {
+                font-size: 29px;
+            }
+
+
+            .login-subtitle {
+                margin-bottom: 26px;
+            }
+
+
+            .security-note {
+                margin-top: 23px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <div class="background-orb orb-one"></div>
+    <div class="background-orb orb-two"></div>
+
+
+    <main class="auth-wrapper">
+
+
+        <!-- =================================================
+             LEFT BRAND SIDE
+             ================================================= -->
+
+        <section class="brand-panel">
+
+            <div class="brand-content">
+
+
+                <div>
+
+                    <div class="brand-logo">
+
+                        <span class="logo-icon">
+                            N
+                        </span>
+
+                        <span>
+                            NewsHub
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="brand-middle">
+
+                    <div class="brand-eyebrow">
+
+                        <span>✦</span>
+
+                        Personalized News
+
+                    </div>
+
+
+                    <h1>
+
+                        Your world.
+                        <br>
+
+                        <span>Your news.</span>
+
+                    </h1>
+
+
+                    <p>
+
+                        Stay informed with stories from around
+                        the world, India, your state and your
+                        local community — all in one place.
+
+                    </p>
+
+
+                    <div class="news-preview">
+
+                        <div class="preview-card">
+
+                            <div class="preview-icon">
+                                🌍
+                            </div>
+
+                            <strong>
+                                World
+                            </strong>
+
+                            <small>
+                                Global stories
+                            </small>
+
+                        </div>
+
+
+                        <div class="preview-card">
+
+                            <div class="preview-icon">
+                                🇮🇳
+                            </div>
+
+                            <strong>
+                                India
+                            </strong>
+
+                            <small>
+                                National news
+                            </small>
+
+                        </div>
+
+
+                        <div class="preview-card">
+
+                            <div class="preview-icon">
+                                📍
+                            </div>
+
+                            <strong>
+                                Local
+                            </strong>
+
+                            <small>
+                                Near you
+                            </small>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="brand-footer">
+
+                    <span class="live-dot"></span>
+
+                    <span>
+                        Personalized news platform
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             RIGHT LOGIN SIDE
+             ================================================= -->
+
+        <section class="login-panel">
+
+            <div class="login-content">
+
+
+                <div class="mobile-logo">
+
+                    <span class="mobile-logo-icon">
+                        N
+                    </span>
+
+                    <span>
+                        NewsHub
+                    </span>
+
+                </div>
+
+
+                <span class="login-eyebrow">
+                    Welcome back
+                </span>
+
+
+                <h2>
+                    Sign in to NewsHub
+                </h2>
+
+
+                <p class="login-subtitle">
+
+                    Your personalized news experience
+                    is waiting for you.
+
+                </p>
+
+
+                <!-- MESSAGE -->
+
+                <div
+                    id="loginMessage"
+                    class="message"
+                ></div>
+
+
+                <!-- FORM -->
+
+                <form id="loginForm">
+
+
+                    <!-- EMAIL -->
+
+                    <div class="form-group">
+
+                        <div class="form-label-row">
+
+                            <label
+                                class="form-label"
+                                for="email"
+                            >
+                                Email address
+                            </label>
+
+                        </div>
+
+
+                        <div class="input-wrapper">
+
+                            <span class="input-icon">
+                                ✉
+                            </span>
+
+
+                            <input
+                                type="email"
+                                id="email"
+                                class="form-input"
+                                placeholder="you@example.com"
+                                autocomplete="email"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PASSWORD -->
+
+                    <div class="form-group">
+
+                        <div class="form-label-row">
+
+                            <label
+                                class="form-label"
+                                for="password"
+                            >
+                                Password
+                            </label>
+
+                        </div>
+
+
+                        <div class="input-wrapper password-wrapper">
+
+                            <span class="input-icon">
+                                🔒
+                            </span>
+
+
+                            <input
+                                type="password"
+                                id="password"
+                                class="form-input"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                minlength="6"
+                                required
+                            >
+
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                id="togglePassword"
+                                aria-label="Show password"
+                            >
+                                👁
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- OPTIONS -->
+
+                    <div class="login-options">
+
+                        <label class="remember">
+
+                            <input
+                                type="checkbox"
+                                id="rememberMe"
+                                checked
+                            >
+
+                            <span>
+                                Remember me
+                            </span>
+
+                        </label>
+
+
+                        <a
+                            href="#"
+                            class="forgot-link"
+                            id="forgotPassword"
+                        >
+                            Forgot password?
+                        </a>
+
+                    </div>
+
+
+                    <!-- SUBMIT -->
+
+                    <button
+                        type="submit"
+                        class="login-button"
+                        id="loginButton"
+                    >
+
+                        <span id="loginButtonText">
+                            Sign In
+                        </span>
+
+                    </button>
+
+
+                </form>
+
+
+                <!-- DIVIDER -->
+
+                <div class="divider">
+
+                    <span>
+                        New here?
+                    </span>
+
+                </div>
+
+
+                <!-- SIGNUP -->
+
+                <div class="signup-box">
+
+                    <p>
+
+                        Don't have an account?
+
+                        <a href="signup.html">
+                            Create Account
+                        </a>
+
+                    </p>
+
+                </div>
+
+
+                <!-- SECURITY -->
+
+                <div class="security-note">
+
+                    <span>🔐</span>
+
+                    <span>
+                        Your account information is securely protected
+                    </span>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <script>
+
+        /* =====================================================
+           API
+           ===================================================== */
+
+        const AUTH_API =
+            "http://localhost:5000/api/auth";
+
+
+        /* =====================================================
+           ELEMENTS
+           ===================================================== */
+
+        const loginForm =
+            document.getElementById("loginForm");
+
+        const emailInput =
+            document.getElementById("email");
+
+        const passwordInput =
+            document.getElementById("password");
+
+        const togglePassword =
+            document.getElementById("togglePassword");
+
+        const loginButton =
+            document.getElementById("loginButton");
+
+        const loginButtonText =
+            document.getElementById("loginButtonText");
+
+        const loginMessage =
+            document.getElementById("loginMessage");
+
+        const forgotPassword =
+            document.getElementById("forgotPassword");
+
+
+        /* =====================================================
+           SHOW / HIDE PASSWORD
+           ===================================================== */
+
+        togglePassword.addEventListener(
+            "click",
+            () => {
+
+                const isPassword =
+                    passwordInput.type === "password";
+
+
+                passwordInput.type =
+                    isPassword
+                        ? "text"
+                        : "password";
+
+
+                togglePassword.textContent =
+                    isPassword
+                        ? "🙈"
+                        : "👁";
+
+
+                togglePassword.setAttribute(
+                    "aria-label",
+                    isPassword
+                        ? "Hide password"
+                        : "Show password"
+                );
+
+            }
+        );
+
+
+        /* =====================================================
+           MESSAGE
+           ===================================================== */
+
+        function showMessage(
+            message,
+            type = "error"
+        ) {
+
+            loginMessage.textContent =
+                message;
+
+            loginMessage.className =
+                `message show ${type}`;
+
+        }
+
+
+        function clearMessage() {
+
+            loginMessage.textContent =
+                "";
+
+            loginMessage.className =
+                "message";
+
+        }
+
+
+        /* =====================================================
+           LOGIN
+           ===================================================== */
+
+        loginForm.addEventListener(
+            "submit",
+            async (event) => {
+
+                event.preventDefault();
+
+                clearMessage();
+
+
+                const email =
+                    emailInput.value
+                        .trim()
+                        .toLowerCase();
+
+
+                const password =
+                    passwordInput.value;
+
+
+                if (!email || !password) {
+
+                    showMessage(
+                        "Please enter your email and password."
+                    );
+
+                    return;
+
+                }
+
+
+                if (password.length < 6) {
+
+                    showMessage(
+                        "Password must be at least 6 characters."
+                    );
+
+                    return;
+
+                }
+
+
+                loginButton.disabled =
+                    true;
+
+
+                loginButtonText.textContent =
+                    "Signing in...";
+
+
+                try {
+
+                    const response =
+                        await fetch(
+                            `${AUTH_API}/login`,
+                            {
+                                method: "POST",
+
+                                headers: {
+                                    "Content-Type":
+                                        "application/json"
+                                },
+
+                                body:
+                                    JSON.stringify({
+                                        email,
+                                        password
+                                    })
+                            }
+                        );
+
+
+                    const data =
+                        await response.json();
+
+
+                    if (!response.ok) {
+
+                        throw new Error(
+                            data.message ||
+                            "Invalid email or password."
+                        );
+
+                    }
+
+
+                    /* =========================================
+                       SAVE AUTH DATA
+                       ========================================= */
+
+                    localStorage.setItem(
+                        "token",
+                        data.token
+                    );
+
+
+                    localStorage.setItem(
+                        "user",
+                        JSON.stringify(data.user)
+                    );
+
+
+                    showMessage(
+                        "Login successful. Welcome back!",
+                        "success"
+                    );
+
+
+                    loginButtonText.textContent =
+                        "Welcome back ✓";
+
+
+                    /* =========================================
+                       REDIRECT
+                       ========================================= */
+
+                    setTimeout(
+                        () => {
+
+                            window.location.href =
+                                "index.html";
+
+                        },
+                        650
+                    );
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Login error:",
+                        error
+                    );
+
+
+                    showMessage(
+                        error.message ||
+                        "Unable to login. Please try again."
+                    );
+
+
+                    loginButton.disabled =
+                        false;
+
+
+                    loginButtonText.textContent =
+                        "Sign In";
+
+                }
+
+            }
+        );
+
+
+        /* =====================================================
+           FORGOT PASSWORD
+           ===================================================== */
+
+        forgotPassword.addEventListener(
+            "click",
+            (event) => {
+
+                event.preventDefault();
+
+                showMessage(
+                    "Password recovery will be available in a future update."
+                );
+
+            }
+        );
+
+
+        /* =====================================================
+           ENTER KEY
+           ===================================================== */
+
+        document.addEventListener(
+            "keydown",
+            (event) => {
+
+                if (
+                    event.key === "Enter" &&
+                    document.activeElement !==
+                        document.querySelector(
+                            "#loginButton"
+                        )
+                ) {
+                    // Normal form submission handles Enter.
+                }
+
+            }
+        );
+
+    </script>
+
+</body>
+
+</html>

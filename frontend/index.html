@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        NewsHub | Your World. Your News.
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="css/style.css"
+    >
+
+    <style>
+
+        /* =================================================
+           LOCATION EDITOR
+           ================================================= */
+
+        .location-editor {
+            margin-top: 18px;
+        }
+
+        .location-editor label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .profile-city-input {
+            width: 100%;
+            box-sizing: border-box;
+            min-height: 48px;
+
+            border: 1px solid #e4e2f0;
+            border-radius: 14px;
+
+            padding: 0 14px;
+
+            background: #ffffff;
+            color: #20243a;
+
+            font-size: 14px;
+            font-weight: 600;
+
+            outline: none;
+
+            transition: 0.2s ease;
+        }
+
+        .profile-city-input::placeholder {
+            color: #aaa6b8;
+            font-weight: 500;
+        }
+
+        .profile-city-input:focus {
+            border-color: #6246e5;
+
+            box-shadow:
+                0 0 0 4px
+                rgba(98, 70, 229, 0.10);
+        }
+
+        #profileState,
+        #profileDistrict {
+            width: 100%;
+        }
+
+        #profileDistrict:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        #locationUpdateMessage {
+            min-height: 20px;
+            margin-top: 10px;
+        }
+
+        #locationBadge {
+            cursor: pointer;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+     ===================================================== -->
+
+<nav class="navbar">
+
+    <div class="logo">
+
+        <span class="logo-icon">
+            N
+        </span>
+
+        <span>
+            NewsHub
+        </span>
+
+    </div>
+
+
+    <div id="nav-links">
+
+        <a href="#world">
+            World
+        </a>
+
+        <a href="#india">
+            India
+        </a>
+
+        <a href="#regional">
+            Regional
+        </a>
+
+        <a href="#local">
+            Local
+        </a>
+
+
+        <button
+            id="profileButton"
+            class="profile-button"
+            type="button"
+        >
+
+            <span class="profile-avatar">
+                👤
+            </span>
+
+            <span id="profileName">
+                Profile
+            </span>
+
+        </button>
+
+    </div>
+
+</nav>
+
+
+<!-- =====================================================
+     PROFILE PANEL
+     ===================================================== -->
+
+<div
+    id="profileOverlay"
+    class="profile-overlay"
+>
+
+    <div
+        id="profilePanel"
+        class="profile-panel"
+    >
+
+        <button
+            id="closeProfile"
+            class="profile-close"
+            type="button"
+        >
+            ×
+        </button>
+
+
+        <div class="profile-top">
+
+            <div class="large-profile-avatar">
+                👤
+            </div>
+
+            <div>
+
+                <span class="profile-label">
+                    YOUR PROFILE
+                </span>
+
+                <h2 id="profilePanelName">
+                    User
+                </h2>
+
+                <p id="profilePanelEmail">
+                    user@email.com
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="profile-divider"></div>
+
+
+        <!-- ACCOUNT -->
+
+        <div class="profile-section">
+
+            <span class="profile-section-title">
+                ACCOUNT
+            </span>
+
+
+            <div class="profile-info">
+
+                <div class="profile-info-icon">
+                    👤
+                </div>
+
+                <div>
+
+                    <small>
+                        Name
+                    </small>
+
+                    <strong id="profileInfoName">
+                        -
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <div class="profile-info">
+
+                <div class="profile-info-icon">
+                    ✉️
+                </div>
+
+                <div>
+
+                    <small>
+                        Email
+                    </small>
+
+                    <strong id="profileInfoEmail">
+                        -
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- LOCATION -->
+
+        <div class="profile-section">
+
+            <span class="profile-section-title">
+                LOCATION
+            </span>
+
+
+            <div class="profile-location">
+
+                <span>
+                    📍
+                </span>
+
+                <div>
+
+                    <strong id="profileLocation">
+                        India
+                    </strong>
+
+                    <small id="profileLocationDetails">
+                        Your selected location
+                    </small>
+
+                </div>
+
+            </div>
+
+
+            <!-- STATE -->
+
+            <div class="location-editor">
+
+                <label
+                    for="profileState"
+                    class="language-label"
+                >
+                    State / Union Territory
+                </label>
+
+                <select
+                    id="profileState"
+                    class="profile-language-select"
+                >
+
+                    <option value="">
+                        Select State / UT
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- DISTRICT -->
+
+            <div class="location-editor">
+
+                <label
+                    for="profileDistrict"
+                    class="language-label"
+                >
+                    District
+                </label>
+
+                <select
+                    id="profileDistrict"
+                    class="profile-language-select"
+                    disabled
+                >
+
+                    <option value="">
+                        Select District
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <!-- CITY -->
+
+            <div class="location-editor">
+
+                <label
+                    for="profileCity"
+                    class="language-label"
+                >
+                    City / Town / Village
+                </label>
+
+                <input
+                    type="text"
+                    id="profileCity"
+                    class="profile-city-input"
+                    placeholder="Enter your city or town"
+                >
+
+            </div>
+
+
+            <button
+                id="saveLocationButton"
+                class="save-language-button"
+                type="button"
+            >
+                Save Location
+            </button>
+
+
+            <p
+                id="locationUpdateMessage"
+                class="profile-update-message"
+            ></p>
+
+        </div>
+
+
+        <!-- LANGUAGE -->
+
+        <div class="profile-section">
+
+            <span class="profile-section-title">
+                LANGUAGE
+            </span>
+
+
+            <label
+                for="profileLanguage"
+                class="language-label"
+            >
+                Choose your news language
+            </label>
+
+
+            <select
+                id="profileLanguage"
+                class="profile-language-select"
+            >
+
+                <option value="English">
+                    🇬🇧 English
+                </option>
+
+                <option value="Telugu">
+                    🇮🇳 తెలుగు — Telugu
+                </option>
+
+                <option value="Hindi">
+                    🇮🇳 हिन्दी — Hindi
+                </option>
+
+                <option value="Tamil">
+                    🇮🇳 தமிழ் — Tamil
+                </option>
+
+                <option value="Kannada">
+                    🇮🇳 ಕನ್ನಡ — Kannada
+                </option>
+
+                <option value="Malayalam">
+                    🇮🇳 മലയാളം — Malayalam
+                </option>
+
+                <option value="Marathi">
+                    🇮🇳 मराठी — Marathi
+                </option>
+
+                <option value="Bengali">
+                    🇮🇳 বাংলা — Bengali
+                </option>
+
+            </select>
+
+
+            <button
+                id="saveLanguageButton"
+                class="save-language-button"
+                type="button"
+            >
+                Save Language
+            </button>
+
+
+            <p
+                id="profileUpdateMessage"
+                class="profile-update-message"
+            ></p>
+
+        </div>
+
+
+        <!-- LOGOUT -->
+
+        <div class="profile-actions">
+
+            <button
+                id="profileLogout"
+                class="profile-logout"
+                type="button"
+            >
+                🚪 Logout
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     HERO
+     ===================================================== -->
+
+<section class="personal-hero">
+
+    <div class="hero-content">
+
+        <span class="eyebrow">
+            YOUR WORLD • YOUR REGION • YOUR NEWS
+        </span>
+
+
+        <h1 id="welcomeTitle">
+            Stay informed.<br>
+            Stay connected.
+        </h1>
+
+
+        <p id="profileSummary">
+            Discover the stories that matter to you.
+        </p>
+
+
+        <div class="profile-badges">
+
+            <span id="locationBadge">
+                📍 India
+            </span>
+
+            <span id="languageBadge">
+                🌐 English
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<main>
+
+
+<!-- SEARCH -->
+
+<section class="news-search-section">
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="searchInput"
+            placeholder="Search for news..."
+        >
+
+        <button id="searchButton">
+            Search
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- QUICK NAVIGATION -->
+
+<section class="quick-navigation">
+
+    <button
+        class="quick-nav active"
+        data-section="world"
+    >
+        🌍 World
+    </button>
+
+
+    <button
+        class="quick-nav"
+        data-section="india"
+    >
+        🇮🇳 India
+    </button>
+
+
+    <button
+        class="quick-nav"
+        data-section="regional"
+    >
+        🏛️ Regional
+    </button>
+
+
+    <button
+        class="quick-nav"
+        data-section="local"
+    >
+        📍 Local
+    </button>
+
+
+    <button
+        class="quick-nav"
+        data-section="technology"
+    >
+        💻 Technology
+    </button>
+
+
+    <button
+        class="quick-nav"
+        data-section="sports"
+    >
+        ⚽ Sports
+    </button>
+
+
+    <button
+        class="quick-nav"
+        data-section="business"
+    >
+        💼 Business
+    </button>
+
+
+    <button
+        class="quick-nav"
+        data-section="entertainment"
+    >
+        🎬 Entertainment
+    </button>
+
+</section>
+
+
+<!-- WORLD -->
+
+<section
+    class="news-section"
+    id="world"
+>
+
+    <div class="section-heading">
+
+        <div>
+
+            <span class="section-label">
+                GLOBAL
+            </span>
+
+            <h2>
+                🌍 World News
+            </h2>
+
+            <p>
+                Important stories from around the world.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="news-grid"
+        id="world-news"
+    >
+
+        <div class="loading">
+            Loading World News...
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- INDIA -->
+
+<section
+    class="news-section"
+    id="india"
+>
+
+    <div class="section-heading">
+
+        <div>
+
+            <span class="section-label">
+                NATIONAL
+            </span>
+
+            <h2>
+                🇮🇳 India News
+            </h2>
+
+            <p>
+                News and developments from across India.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="news-grid"
+        id="india-news"
+    >
+
+        <div class="loading">
+            Loading India News...
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- REGIONAL -->
+
+<section
+    class="news-section"
+    id="regional"
+>
+
+    <div class="section-heading">
+
+        <div>
+
+            <span class="section-label">
+                YOUR REGION
+            </span>
+
+            <h2 id="regionalTitle">
+                🏛️ Regional News
+            </h2>
+
+            <p id="regionalDescription">
+                News from your selected state.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="news-grid"
+        id="regional-news"
+    >
+
+        <div class="loading">
+            Loading Regional News...
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- LOCAL -->
+
+<section
+    class="news-section local-section"
+    id="local"
+>
+
+    <div class="local-header">
+
+        <div>
+
+            <span class="section-label">
+                NEAR YOU
+            </span>
+
+            <h2>
+                📍 Local News
+            </h2>
+
+            <p id="localDescription">
+                Stories from your district and city.
+            </p>
+
+        </div>
+
+
+        <button
+            id="changeLocationButton"
+            class="location-change"
+            type="button"
+        >
+            Change Location
+        </button>
+
+    </div>
+
+
+    <div class="local-location-card">
+
+        <div class="local-location-icon">
+            📍
+        </div>
+
+        <div>
+
+            <strong id="localLocationTitle">
+                Your Location
+            </strong>
+
+            <p id="localLocationText">
+                Loading your local news...
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="news-grid"
+        id="local-news"
+    >
+
+        <div class="loading">
+            Loading Local News...
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- EXPLORE TOPICS -->
+
+<section class="topics-section">
+
+    <div class="section-heading">
+
+        <div>
+
+            <span class="section-label">
+                DISCOVER
+            </span>
+
+            <h2>
+                Explore Topics
+            </h2>
+
+            <p>
+                Discover more stories from categories you care about.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="topics-grid">
+
+        <button
+            class="topic-card"
+            data-section="technology"
+        >
+
+            <span>
+                💻
+            </span>
+
+            <strong>
+                Technology
+            </strong>
+
+            <small>
+                Latest technology stories
+            </small>
+
+        </button>
+
+
+        <button
+            class="topic-card"
+            data-section="sports"
+        >
+
+            <span>
+                ⚽
+            </span>
+
+            <strong>
+                Sports
+            </strong>
+
+            <small>
+                Sports news and updates
+            </small>
+
+        </button>
+
+
+        <button
+            class="topic-card"
+            data-section="business"
+        >
+
+            <span>
+                💼
+            </span>
+
+            <strong>
+                Business
+            </strong>
+
+            <small>
+                Markets and business news
+            </small>
+
+        </button>
+
+
+        <button
+            class="topic-card"
+            data-section="entertainment"
+        >
+
+            <span>
+                🎬
+            </span>
+
+            <strong>
+                Entertainment
+            </strong>
+
+            <small>
+                Movies and entertainment
+            </small>
+
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- EXPLORE RESULTS -->
+
+<section
+    class="news-section"
+    id="explore-results"
+>
+
+    <div class="section-heading">
+
+        <div>
+
+            <span class="section-label">
+                EXPLORE
+            </span>
+
+            <h2 id="exploreTitle">
+                Explore News
+            </h2>
+
+            <p id="exploreDescription">
+                Select a topic to discover more stories.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div
+        class="news-grid"
+        id="explore-news"
+    >
+
+        <div class="loading">
+            Select a topic above.
+        </div>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <div class="footer-content">
+
+        <div>
+
+            <div class="footer-brand">
+
+                <span class="logo-icon">
+                    N
+                </span>
+
+                <strong>
+                    NewsHub
+                </strong>
+
+            </div>
+
+            <p>
+                Your world. Your region. Your news.
+            </p>
+
+        </div>
+
+
+        <div class="footer-right">
+
+            <p>
+                © 2026 NewsHub
+            </p>
+
+            <p>
+                Personalized news platform
+            </p>
+
+        </div>
+
+    </div>
+
+</footer>
+
+
+<!-- LOCATION DATA FIRST -->
+
+<script src="js/locations.js"></script>
+
+<!-- MAIN APP -->
+
+<script src="js/app.js"></script>
+
+
+</body>
+
+</html>
